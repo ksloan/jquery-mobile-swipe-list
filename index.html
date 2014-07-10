@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JQM Swipe Delete</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+    <style>
+    .behind {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .behind a.ui-btn {
+        width: 68px;
+        margin: 0px;
+        float: right;
+        border: none;
+    }
+    .behind a.delete-btn, .behind a.delete-btn:active, .behind a.delete-btn:visited, .behind a.delete-btn:focus, .behind a.delete-btn:hover {
+        color: white;
+        background-color: red;
+        text-shadow: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div data-role="page">
+            <div data-role="header" data-position="fixed">
+                <h1>Swipe Delete</h1>
+            </div>
+            <div data-role="content">
+                <ul data-role="listview" class="swipe-delete">
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                    <li>
+                        <div class="behind">
+                            <a href="#" class="ui-btn delete-btn">Delete</a>
+                        </div>
+                        <a href="#">test</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+<script type="text/javascript">
+$(function() {
+
+    function prevent_default(e) {
+        e.preventDefault();
+    }
+
+    function disable_scroll() {
+        $(document).on('touchmove', prevent_default);
+    }
+
+    function enable_scroll() {
+        $(document).unbind('touchmove', prevent_default)
+    }
+
+    var x;
+    $('.swipe-delete li > a')
+        .on('touchstart', function(e) {
+            $('.swipe-delete li > a').css('left', '0px') // close em all
+            x = e.originalEvent.pageX // anchor point
+        })
+        .on('touchmove', function(e) {
+            var change = e.originalEvent.pageX - x
+            change = Math.min(Math.max(-100, change), 0) // restrict to -100px left, 0px right
+            e.currentTarget.style.left = change + 'px'
+            if (change < -10) disable_scroll() // disable scroll once we hit 10px horizontal slide
+        })
+        .on('touchend', function(e) {
+            var left = parseInt(e.currentTarget.style.left)
+            var new_left = (left > -50 ? '0px' : '-100px') // snap back, or leave open, 50px threshold
+            e.currentTarget.style.left = new_left
+            enable_scroll()
+        });
+
+    $('li .delete-btn').on('touchend', function(e) {
+        e.preventDefault()
+        $(this).parents('li').slideUp('fast', function() {
+            $(this).remove()
+        })
+    })
+
+});
+</script>
+
+</html>
