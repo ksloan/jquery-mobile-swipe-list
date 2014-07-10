@@ -3,7 +3,7 @@ jquery-mobile-swipe-list
 
 Swipe sideways on a list element to reveal additional buttons (iOS style)
 
-Mobile Demo Here: http://ksloan.net/jquery-mobile-swipe-list-demo/
+Mobile Demo: http://ksloan.net/jquery-mobile-swipe-list-demo/ (touch events only)
 
 Sample gif made with [AppGif.net](http://appgif.net):
 
