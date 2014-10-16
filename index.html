@@ -176,7 +176,7 @@ $(function() {
     $('.swipe-delete li > a')
         .on('touchstart', function(e) {
             console.log(e.originalEvent.pageX)
-            $('.swipe-delete li > a').css('left', '0px') // close em all
+            $('.swipe-delete li > a.open').css('left', '0px').removeClass('open') // close em all
             $(e.currentTarget).addClass('open')
             x = e.originalEvent.targetTouches[0].pageX // anchor point
         })
